@@ -1,7 +1,7 @@
 import requests
 import json
 from telebot import types
-from config import HEADERS, currencies
+from config import API_KEY, currencies
 
 
 class APIException(Exception):
@@ -31,7 +31,7 @@ class CurrencyConverter:
 
         url = f'https://api.apilayer.com/currency_data/convert?' \
               f'to={quote_ticker}&from={base_ticker}&amount={amount}'
-        response = requests.request("GET", url, headers=HEADERS, data={})
+        response = requests.request("GET", url, headers={"apikey": API_KEY}, data={})
         result = json.loads(response.text)["result"]
         result = str(round(result, 2)).replace(".", ",")
         return result
